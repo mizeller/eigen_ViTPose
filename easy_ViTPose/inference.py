@@ -81,21 +81,18 @@ class VitInference:
     def __init__(
         self,
         model: str,
-        yolo: str,
+        yolo_model: str = "yolo11n.pt",
         model_name: Optional[str] = None,
         det_class: Optional[str] = "human",
         dataset: Optional[str] = None,
-        yolo_size: Optional[int] = 320,
         device: Optional[str] = None,
-        is_video: Optional[bool] = False,
+        is_video: Optional[bool] = True,
         single_pose: Optional[bool] = False,
         yolo_step: Optional[int] = 1,
-        cfg: Optional[dict] = None,
+        yolo_size: Optional[int] = 640,
     ):
         assert os.path.isfile(model), f"The model file {model} does not exist"
-        assert os.path.isfile(yolo), f"The YOLOv8 model {yolo} does not exist"
 
-        # Device priority is cuda / mps / cpu
         if device is None:
             if torch.cuda.is_available():
                 device = "cuda"
@@ -104,9 +101,8 @@ class VitInference:
             else:
                 device = "cpu"
 
-        self.cfg = cfg
         self.device = device
-        self.yolo = YOLO(yolo, task="detect")
+        self.yolo = YOLO(yolo_model, task="detect")
         self.yolo_size = yolo_size
         self.yolo_step = yolo_step
         self.is_video = is_video
