@@ -204,7 +204,6 @@ class VitInference:
                                                unbiased=True, use_udp=True)
         return np.concatenate([points[:, :, ::-1], prob], axis=2)
 
-    @abc.abstractmethod
     def _inference(self, img: np.ndarray) -> np.ndarray:
         """
         Abstract method for performing inference on an image.
