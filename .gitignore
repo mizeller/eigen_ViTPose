@@ -11,3 +11,4 @@ examples
 outputs
 .ipynb_checkpoints
 eigen_ViTPose.egg-info/*
+easy_ViTPose.egg-info/*
